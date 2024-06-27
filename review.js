@@ -3,8 +3,23 @@ import simpleGit from "simple-git";
 const git = simpleGit();
 
 const getCommitDiff = async () => {
-  const diff = await git.diff(["HEAD^", "HEAD"]);
-  return diff;
+  try {
+    const log = await git.log(["-n", "2"]);
+
+    if (log.total === 0) {
+      throw new Error("No commits found in the repository.");
+    } else if (log.total === 1) {
+      throw new Error("Only one commit found in the repository.");
+    }
+
+    const commit1 = log.latest.hash;
+    const commit2 = log.all[1].hash;
+
+    const diff = await git.diff([`${commit2}..${commit1}`]);
+    return diff;
+  } catch (error) {
+    throw new Error(`Error getting commit diff: ${error}`);
+  }
 };
 
 const getReviewComments = async (diff) => {
