@@ -1,6 +1,10 @@
-import axios from "axios";
 import simpleGit from "simple-git";
+import OpenAI from "openai";
+import "dotenv/config";
+
 const git = simpleGit();
+
+const openai = new OpenAI({ apiKey: process.env.OPENAI_TOKEN });
 
 const getCommitDiff = async () => {
   try {
@@ -23,23 +27,16 @@ const getCommitDiff = async () => {
 };
 
 const getReviewComments = async (diff) => {
-  const apiKey = process.env.OPENAI_API_KEY;
-  const url = "https://api.openai.com/v1/completions";
-  const response = await axios.post(
-    url,
-    {
-      model: "text-davinci-003",
-      prompt: `Analyze the following code diff and provide code review comments:\n\n${diff}`,
-      max_tokens: 150,
-    },
-    {
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        "Content-Type": "application/json",
+  const completion = await openai.chat.completions.create({
+    messages: [
+      {
+        role: "system",
+        content: `(l'analyse devra être courte et sous forme de liste sans phrase longue) Analyser le code diff suivant et donne des conseil sur le CLEAN CODE :\n\n${diff}`,
       },
-    }
-  );
-  return response.data.choices[0].text;
+    ],
+    model: "gpt-3.5-turbo",
+  });
+  return completion.choices[0];
 };
 
 const main = async () => {
