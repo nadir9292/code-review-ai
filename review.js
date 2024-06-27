@@ -1,6 +1,10 @@
 import simpleGit from "simple-git";
 import OpenAI from "openai";
+import fs from "fs";
 import "dotenv/config";
+import { promisify } from "util";
+
+const writeFileAsync = promisify(fs.writeFile);
 
 const git = simpleGit();
 
@@ -36,14 +40,35 @@ const getReviewComments = async (diff) => {
     ],
     model: "gpt-3.5-turbo",
   });
+  console.log(completion.choices[0]);
   return completion.choices[0];
+};
+
+const writeCompletionToFile = async (commitTitle, date, completionText) => {
+  const markdownContent = `# ${commitTitle}\n\nDate: ${date}\n\n${completionText}\n\n---\n\n`;
+
+  try {
+    await writeFileAsync("code_reviews.md", markdownContent, { flag: "a" });
+    console.log(`Added review for commit '${commitTitle}' to code_reviews.md`);
+  } catch (error) {
+    throw new Error(`Error writing to file: ${error}`);
+  }
 };
 
 const main = async () => {
   try {
     const diff = await getCommitDiff();
     const reviewComments = await getReviewComments(diff);
-    console.log("Code Review Comments:", reviewComments);
+
+    const log = await git.log(["-n", "1"]); // Obtenir les informations sur le dernier commit
+    const commitTitle = log.latest.message;
+    const commitDate = log.latest.date;
+
+    await writeCompletionToFile(
+      commitTitle,
+      commitDate,
+      reviewComments.message.content
+    );
   } catch (error) {
     console.error("Error during code review:", error);
   }
