@@ -9,3 +9,17 @@ Date: 2024-06-27T13:22:47+02:00
 
 ---
 
+# add new file to store all message from AI
+
+Date: 2024-06-27T13:43:56+02:00
+
+Conseils de CLEAN CODE :
+1. Utiliser des noms de fichiers clairs et explicites.
+2. Éviter les caractères spéciaux et les espaces dans les noms de fichiers.
+3. Garder les noms de fichiers concis et pertinents.
+4. Ne pas ajouter des dépendances inutilisées dans le fichier package-lock.json.
+5. Organiser les imports de manière cohérente dans le fichier review.js.
+6. Commenter le code de manière pertinente pour expliquer les actions effectuées.
+
+---
+

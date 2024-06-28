@@ -17,5 +17,8 @@
     "fs": "^0.0.1-security",
     "openai": "^4.52.1",
     "simple-git": "^3.25.0"
+  },
+  "devDependencies": {
+    "eslint": "^9.5.0"
   }
 }
