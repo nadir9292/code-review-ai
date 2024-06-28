@@ -11,3 +11,17 @@ Conseils sur le CLEAN CODE :
 
 ---
 
+# add all info from AI in readme.md
+
+Date: 2024-06-28T11:32:58+02:00
+
+Conseils sur le CLEAN CODE :
+1. Utiliser des noms de fichiers clairs et explicites.
+2. Éviter les caractères spéciaux et les espaces dans les noms de fichiers.
+3. Garder les noms de fichiers concis et pertinents.
+4. Organiser les imports de manière cohérente dans les fichiers.
+5. Indenter uniformément le contenu.
+6. Ajouter des commentaires pour expliquer les configurations complexes.
+
+---
+
