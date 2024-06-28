@@ -35,7 +35,7 @@ const getReviewComments = async (diff) => {
     messages: [
       {
         role: "system",
-        content: `(l'analyse devra être courte et sous forme de liste sans phrase longue) Analyser le code diff suivant et donne des conseil sur le CLEAN CODE :\n\n${diff}`,
+        content: `(l'analyse devra être tres courte et sous forme de liste sans phrase longue) Analyser le code diff suivant et donne des conseil sur le CLEAN CODE :\n\n${diff}`,
       },
     ],
     model: "gpt-3.5-turbo",
