@@ -48,8 +48,8 @@ const writeCompletionToFile = async (commitTitle, date, completionText) => {
   const markdownContent = `# ${commitTitle}\n\nDate: ${date}\n\n${completionText}\n\n---\n\n`
 
   try {
-    await writeFileAsync('code_reviews.md', markdownContent, { flag: 'a' })
-    console.log(`Added review for commit '${commitTitle}' to code_reviews.md`)
+    await writeFileAsync('README.md', markdownContent, { flag: 'a' })
+    console.log(`Added review for commit '${commitTitle}' to README.md`)
   } catch (error) {
     throw new Error(`Error writing to file: ${error}`)
   }
